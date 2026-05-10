@@ -1,34 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Home - Xander Bumgardner</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
+
 <body>
 
+    <!-- TOP NAV -->
     <header class="topnav">
+        <button class="menu-btn" id="menuBtn" aria-label="Toggle sidebar">
+            ☰
+        </button>
 
-    <button class="menu-btn" id="menuBtn">
-        ☰
-    </button>
+        <h1 class="logo">My Website</h1>
+    </header>
 
-    <h1 class="logo">My Website</h1>
+    <!-- SIDE NAV -->
+    <aside class="sidenav" id="sidenav" aria-label="Sidebar navigation">
 
-</header>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Projects</a>
+            <a href="#">Settings</a>
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+        </nav>
 
-<!-- SIDE NAV -->
-<aside class="sidenav" id="sidenav">
-
-    <a href="#">Home</a>
-    <a href="#">Projects</a>
-    <a href="#">Settings</a>
-    <a href="#">Profile</a>
-    <a href="#">Logout</a>
-
-</aside>
+    </aside>
 
 </body>
 </html>

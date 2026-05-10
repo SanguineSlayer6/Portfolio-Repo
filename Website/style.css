@@ -1,72 +1,252 @@
-body {
-    padding: 0;
-    box-sizing: border-box;
-    background-color: black;
-    margin: 0;
+:root {
+    /* =========================
+       BLOOD CRIMSON COLOR SYSTEM
+    ========================= */
+
+    --crimson-deep: #0a0002;
+    --crimson-mid: #1a0004;
+    --crimson-blood: #2a0006;
+    --crimson-glow: rgba(110, 0, 10, 0.55);
+    --crimson-soft: rgba(140, 0, 15, 0.25);
+
+    /* =========================
+       OLED MATERIAL SYSTEM
+    ========================= */
+
+    --oled-edge: rgba(180, 0, 20, 0.10);
+    --oled-edge-strong: rgba(200, 0, 25, 0.18);
+
+    --oled-shadow: rgba(0, 0, 0, 0.92);
+    --oled-inner-glow: rgba(120, 0, 10, 0.05);
 }
 
+/* =========================
+   GLOBAL OLED BASE (UNCHANGED STRUCTURE, DEEPER BLACK)
+========================= */
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+
+    color: #ffffff;
+
+    overflow-x: hidden;
+    position: relative;
+
+    background: radial-gradient(circle at 50% 50%,
+        #040000 0%,
+        #000000 55%,
+        #000000 100%);
+}
+
+/* =========================
+   CRIMSON FIELD LAYERS (SHIFTED TO BLOOD RED, NOT PINK)
+========================= */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
+body::before {
+    z-index: -3;
+
+    background:
+        radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
+            rgba(80, 0, 8, 0.28),
+            transparent 60%),
+
+        radial-gradient(circle at 50% 80%,
+            rgba(30, 0, 4, 0.25),
+            transparent 65%),
+
+        radial-gradient(circle, #000 70%, #000);
+}
+
+body::after {
+    z-index: -2;
+
+    background:
+        radial-gradient(circle at var(--x, 50%) var(--y, 50%),
+            rgba(140, 0, 18, 0.22),
+            transparent 70%),
+
+        radial-gradient(circle at var(--fx, 50%) var(--fy, 50%),
+            rgba(200, 0, 20, 0.06),
+            transparent 55%);
+
+    mix-blend-mode: screen;
+    opacity: 0.75; /* slightly reduced to avoid pink wash */
+}
+
+/* =========================
+   SHARED GLASS MATERIAL (DEEPER, LESS PINK LIGHT LEAK)
+========================= */
+
+.topnav,
+.sidenav {
+    background: rgba(6, 0, 2, 0.60);
+
+    backdrop-filter: blur(28px) saturate(110%);
+    -webkit-backdrop-filter: blur(28px) saturate(110%);
+
+    border: 1px solid var(--oled-edge);
+
+    box-shadow:
+        0 0 55px var(--oled-shadow),
+        inset 0 0 18px var(--oled-inner-glow);
+}
+
+/* =========================
+   TOP NAV (DEEPER BLOOD EDGE)
+========================= */
+
 .topnav {
-    height: 60px;
-    background-color: #1e1e1e;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 70px;
 
     display: flex;
     align-items: center;
 
     padding: 0 20px;
+    z-index: 1000;
 
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid rgba(180, 0, 20, 0.12);
 }
+
+/* =========================
+   LOGO (REMOVED PINK BIAS)
+========================= */
 
 .logo {
-    color: white;
-    font-size: 22px;
     margin-left: 20px;
+    font-size: 22px;
+    font-weight: 600;
+
+    color: #ffd6d6;
+
+    text-shadow:
+        0 0 14px rgba(120, 0, 15, 0.6),
+        0 0 26px rgba(80, 0, 10, 0.7);
 }
+
+/* =========================
+   BUTTON (BLOOD METAL SHIFT)
+========================= */
 
 .menu-btn {
-    background: none;
-    border: none;
+    width: 46px;
+    height: 46px;
 
-    color: white;
-    font-size: 28px;
+    border-radius: 14px;
+
+    border: 1px solid rgba(160, 0, 20, 0.25);
+
+    background: rgba(255, 255, 255, 0.03);
+
+    color: #ffd6d6;
+    font-size: 24px;
 
     cursor: pointer;
+
+    transition: all 0.25s ease;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    box-shadow:
+        0 0 14px rgba(60, 0, 10, 0.45),
+        inset 0 0 12px rgba(255, 255, 255, 0.02);
 }
+
+.menu-btn:hover {
+    transform: scale(1.06);
+
+    background: rgba(100, 0, 10, 0.18);
+
+    box-shadow:
+        0 0 26px rgba(140, 0, 18, 0.45),
+        inset 0 0 16px rgba(255, 255, 255, 0.03);
+}
+
+/* =========================
+   SIDENAV (DEEPER MATERIAL DENSITY)
+========================= */
 
 .sidenav {
     position: fixed;
+    top: 70px;
+    left: 0;
 
-    top: 60px;
-    left: -250px;
-
-    width: 250px;
-    height: calc(100vh - 60px);
-
-    background-color: #252525;
-
-    transition: left 0.3s ease;
+    width: 260px;
+    height: calc(100vh - 70px);
 
     padding-top: 20px;
+    border-radius: 0 28px 28px 0;
 
-    border-right: 1px solid #333;
+    z-index: 999;
+
+    transform: translateX(-110%);
+    transition: transform 0.35s ease;
 }
 
 .sidenav.open {
-    left: 0;
+    transform: translateX(0);
 }
+
+/* =========================
+   LINKS (BLOOD EMISSION ONLY, NO PINK HAZE)
+========================= */
 
 .sidenav a {
     display: block;
+    position: relative;
 
-    padding: 15px 25px;
+    margin: 10px 15px;
+    padding: 16px 20px;
 
-    color: #ddd;
+    border-radius: 16px;
+
     text-decoration: none;
+    color: #ffe6e6;
 
-    transition: background 0.2s ease;
+    transition: all 0.25s ease;
+}
+
+.sidenav a::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    border-radius: 16px;
+
+    background: radial-gradient(circle at 50% 50%,
+        rgba(160, 0, 18, 0.10),
+        transparent 72%);
+
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.sidenav a:hover::before {
+    opacity: 1;
 }
 
 .sidenav a:hover {
-    background-color: #333;
-    color: #4da3ff;
+    transform: translateX(7px);
+
+    background: rgba(100, 0, 10, 0.18);
+
+    box-shadow:
+        0 0 18px rgba(120, 0, 15, 0.35),
+        inset 0 0 10px rgba(255, 255, 255, 0.02);
+
+    color: #ffffff;
 }
