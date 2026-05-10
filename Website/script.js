@@ -70,16 +70,16 @@ if (menuBtn && sidenav) {
 
 const pages = [
     { name: "Home", url: "/Portfolio-Repo/Website/index.html" },
-    { name: "Projects", url: "/projects.html" },
-    { name: "About Me", url: "/aboutme.html" },
-    { name: "Contact", url: "/contact.html" }
+    { name: "Projects", url: "/Portfolio-Repo/Website/projects.html" },
+    { name: "About Me", url: "/Portfolio-Repo/Website/aboutme.html" },
+    { name: "Contact", url: "/Portfolio-Repo/Website/contact.html" }
 ];
 
 function getCurrentPath() {
     let path = window.location.pathname;
 
     if (path === "/" || path === "") {
-        path = "/index.html";
+        path = "/Portfolio-Repo/Website/index.html";
     }
 
     return path;
