@@ -1,7 +1,7 @@
 const body = document.body;
 
 /* =========================
-   CURSOR STATE
+   CURSOR STATE SYSTEM
 ========================= */
 
 let targetX = 50;
@@ -17,22 +17,21 @@ let y = 50;
 let vx = 0;
 let vy = 0;
 
-/* velocity tracking */
 let prevX = 50;
 let prevY = 50;
-
-let velX = 0;
-let velY = 0;
 
 /* =========================
    FIELD LAYERS
 ========================= */
 
-let midX = 50, midY = 50;
-let fastX = 50, fastY = 50;
+let midX = 50;
+let midY = 50;
+
+let fastX = 50;
+let fastY = 50;
 
 /* =========================
-   TUNING
+   SIMULATION PARAMETERS
 ========================= */
 
 const stiffness = 0.02;
@@ -44,21 +43,6 @@ const fastStrength = 0.12;
 const distortionK = 0.002;
 
 /* =========================
-   UI ELEMENTS
-========================= */
-
-const sidenav = document.getElementById("sidenav");
-const menuBtn = document.getElementById("menuBtn");
-
-/* =========================
-   SIDEBAR TOGGLE
-========================= */
-
-menuBtn.addEventListener("click", () => {
-    sidenav.classList.toggle("open");
-});
-
-/* =========================
    INPUT SYSTEM
 ========================= */
 
@@ -68,84 +52,127 @@ document.addEventListener("mousemove", (e) => {
 });
 
 /* =========================
-   PHYSICS UPDATE
+   UI SYSTEM (SIDEBAR)
 ========================= */
 
-function updatePhysics() {
-    const ax = (targetX - x) * stiffness;
-    const ay = (targetY - y) * stiffness;
+const sidenav = document.getElementById("sidenav");
+const menuBtn = document.getElementById("menuBtn");
 
-    vx = (vx + ax) * damping;
-    vy = (vy + ay) * damping;
+if (menuBtn && sidenav) {
+    menuBtn.addEventListener("click", () => {
+        sidenav.classList.toggle("open");
+    });
+}
+
+/* =========================
+   NAVIGATION SYSTEM
+========================= */
+
+const pages = [
+    { name: "Home", url: "/index.html" },
+    { name: "Projects", url: "/projects.html" },
+    { name: "About Me", url: "/aboutme.html" },
+    { name: "Contact", url: "/contact.html" }
+];
+
+function getCurrentPath() {
+    let path = window.location.pathname;
+
+    if (path === "/" || path === "") {
+        path = "/index.html";
+    }
+
+    return path;
+}
+
+function buildNav() {
+    if (!sidenav) return;
+
+    sidenav.innerHTML = "";
+
+    const currentPath = getCurrentPath();
+
+    const nav = document.createElement("nav");
+
+    pages.forEach((page) => {
+        const link = document.createElement("a");
+
+        link.href = page.url;
+        link.textContent = page.name;
+
+        if (page.url === currentPath) {
+            link.classList.add("active");
+        }
+
+        nav.appendChild(link);
+    });
+
+    sidenav.appendChild(nav);
+}
+
+buildNav();
+
+/* =========================
+   PHYSICS + FIELD SIMULATION
+========================= */
+
+function animate() {
+
+    /* =========================
+       CORE SPRING MOTION
+    ========================== */
+
+    vx += (targetX - x) * stiffness;
+    vy += (targetY - y) * stiffness;
+
+    vx *= damping;
+    vy *= damping;
 
     x += vx;
     y += vy;
 
-    velX = x - prevX;
-    velY = y - prevY;
+    /* =========================
+       FIELD LAYERS
+    ========================== */
 
-    prevX = x;
-    prevY = y;
-}
-
-/* =========================
-   FIELD UPDATE (PARALLAX)
-========================= */
-
-function updateFields() {
     midX += (targetX - midX) * midStrength;
     midY += (targetY - midY) * midStrength;
 
     fastX += (targetX - fastX) * fastStrength;
     fastY += (targetY - fastY) * fastStrength;
-}
 
-/* =========================
-   DISTORTION FIELD
-========================= */
+    /* =========================
+       DISTORTION FIELD
+    ========================== */
 
-function getDistortion() {
     const dx = targetX - x;
     const dy = targetY - y;
 
     const dist = Math.sqrt(dx * dx + dy * dy);
+
     const influence = 1 / (1 + distortionK * dist * dist);
 
-    return {
-        x: dx * influence * 0.15,
-        y: dy * influence * 0.15
-    };
-}
+    const bendX = dx * influence * 0.15;
+    const bendY = dy * influence * 0.15;
 
-/* =========================
-   OUTPUT SYSTEM
-========================= */
+    /* =========================
+       OUTPUT TO CSS VARIABLES
+    ========================== */
 
-function render(bendX, bendY) {
     body.style.setProperty("--x", (x + bendX) + "%");
     body.style.setProperty("--y", (y + bendY) + "%");
 
-    body.style.setProperty("--mx", (midX + bendX * 0.6) + "%");
-    body.style.setProperty("--my", (midY + bendY * 0.6) + "%");
+    body.style.setProperty("--mx", midX + "%");
+    body.style.setProperty("--my", midY + "%");
 
-    body.style.setProperty("--fx", (fastX + bendX * 0.3) + "%");
-    body.style.setProperty("--fy", (fastY + bendY * 0.3) + "%");
-}
-
-/* =========================
-   MAIN LOOP
-========================= */
-
-function animate() {
-
-    updatePhysics();
-    updateFields();
-
-    const { x: bendX, y: bendY } = getDistortion();
-
-    render(bendX, bendY);
+    body.style.setProperty("--fx", fastX + "%");
+    body.style.setProperty("--fy", fastY + "%");
 
     requestAnimationFrame(animate);
 }
+
+/* =========================
+   BOOT SYSTEM
+========================= */
 
 animate();
