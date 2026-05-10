@@ -1,12 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap');
 
 /* =========================
-   GLOBAL TYPOGRAPHY SETTING
+   GLOBAL SETTINGS
 ========================= */
 
 * {
     font-family: 'Orbitron', sans-serif;
 }
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+
+    min-height: 100dvh;
+}
+
 /* =========================
    DESIGN SYSTEM TOKENS
 ========================= */
@@ -51,7 +60,8 @@ body {
     margin: 0;
     color: #fff;
     overflow-x: hidden;
-
+    
+    background-attachment: fixed;
     background: radial-gradient(circle at 50% 50%,
         #020000 0%,
         #000000 60%,
@@ -204,7 +214,7 @@ body::after {
     left: 0;
 
     width: 260px;
-    height: calc(100vh - 70px);
+    height: calc(100dvh - 70px);
 
     padding-top: 20px;
 
