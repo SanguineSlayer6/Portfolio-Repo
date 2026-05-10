@@ -83,6 +83,7 @@ body::before {
             transparent 70%);
 }
 
+
 body::after {
     z-index: -2;
 
