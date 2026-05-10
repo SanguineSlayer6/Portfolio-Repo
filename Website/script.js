@@ -69,7 +69,7 @@ if (menuBtn && sidenav) {
 ========================= */
 
 const pages = [
-    { name: "Home", url: "/index.html" },
+    { name: "Home", url: "/Portfolio-Repo/Website/index.html" },
     { name: "Projects", url: "/projects.html" },
     { name: "About Me", url: "/aboutme.html" },
     { name: "Contact", url: "/contact.html" }
