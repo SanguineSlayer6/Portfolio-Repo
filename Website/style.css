@@ -82,6 +82,7 @@ body {
     color: #fff;
     overflow-x: hidden;
     background-color: #000000;
+    overscroll-behavior-y: none;
     background-attachment: fixed;
     background: radial-gradient(circle at 50% 50%,
         #020000 0%,
