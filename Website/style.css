@@ -8,6 +8,12 @@
     font-family: 'Orbitron', sans-serif;
 }
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 html {
     scroll-behavior: smooth;
 }
@@ -20,12 +26,23 @@ body {
     min-height: 100dvh;
 }
 
+@media (prefers-reduced-motion: reduce) {
+
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 /* =========================
    DESIGN SYSTEM TOKENS
 ========================= */
 
 :root {
 
+    color-scheme: dark;
+    
     /* =========================
        FIELD COLOR SYSTEM
     ========================== */
@@ -64,7 +81,7 @@ body {
     margin: 0;
     color: #fff;
     overflow-x: hidden;
-    
+    background-color: #000000;
     background-attachment: fixed;
     background: radial-gradient(circle at 50% 50%,
         #020000 0%,
