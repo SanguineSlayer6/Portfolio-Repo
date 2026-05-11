@@ -8,6 +8,10 @@
     font-family: 'Orbitron', sans-serif;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 html,
 body {
     margin: 0;
