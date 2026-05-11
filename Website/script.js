@@ -50,14 +50,38 @@ const distortionK = 0.002;
    INPUT SYSTEM
 ========================= */
 
-document.addEventListener("pointermove", (e) => {
+function updatePointerPosition(clientX, clientY) {
 
     targetX =
-        (e.clientX / window.innerWidth) * 100;
+        (clientX / window.innerWidth) * 100;
 
     targetY =
-        (e.clientY / window.innerHeight) * 100;
+        (clientY / window.innerHeight) * 100;
+}
+
+window.addEventListener("mousemove", (e) => {
+
+    updatePointerPosition(
+        e.clientX,
+        e.clientY
+    );
 });
+
+window.addEventListener(
+    "touchmove",
+    (e) => {
+
+        const touch = e.touches[0];
+
+        if (!touch) return;
+
+        updatePointerPosition(
+            touch.clientX,
+            touch.clientY
+        );
+    },
+    { passive: true }
+);
 
 /* =========================
    SIDEBAR TOGGLE SYSTEM
