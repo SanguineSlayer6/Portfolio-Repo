@@ -104,7 +104,7 @@ body::after {
 
 .topnav,
 .sidenav,
-.hero,
+.main-card,
 .card {
 
     background: var(--surface);
@@ -128,7 +128,7 @@ body::after {
 
 .topnav:hover,
 .sidenav:hover,
-.hero:hover,
+.main-card:hover,
 .card:hover {
 
     border-color: var(--field-glow);
@@ -273,10 +273,10 @@ body::after {
 }
 
 /* =========================
-   HERO SECTION
+   MAIN CARD SECTION
 ========================= */
 
-.hero {
+.main-card {
     max-width: 800px;
     padding: 30px;
 
