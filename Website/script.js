@@ -50,11 +50,13 @@ const distortionK = 0.002;
    INPUT SYSTEM
 ========================= */
 
-document.addEventListener("mousemove", (e) => {
+document.addEventListener("pointermove", (e) => {
 
-    targetX = (e.clientX / window.innerWidth) * 100;
-    targetY = (e.clientY / window.innerHeight) * 100;
+    targetX =
+        (e.clientX / window.innerWidth) * 100;
 
+    targetY =
+        (e.clientY / window.innerHeight) * 100;
 });
 
 /* =========================
