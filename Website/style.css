@@ -18,12 +18,35 @@ html {
     scroll-behavior: smooth;
 }
 
+body::before,
+body::after {
+    animation: fieldFade 1.5s ease forwards;
+}
+
+@keyframes fieldFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0.7;
+    }
+}
+
 html,
 body {
     margin: 0;
     padding: 0;
 
     min-height: 100dvh;
+}
+
+body::before,
+body::after,
+.sidenav,
+.topnav {
+    will-change: transform, opacity;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -226,6 +249,19 @@ body::after {
     border: 1px solid var(--field-border);
 
     backdrop-filter: blur(14px);
+}
+
+button,
+a,
+.card,
+.info-card {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid rgba(220, 0, 30, 0.7);
+    outline-offset: 4px;
 }
 
 /* =========================
@@ -600,4 +636,86 @@ body::after {
         max-width: 320px;
         height: auto;
     }
+}
+
+
+/* =========================
+   PAGE LOAD ANIMATIONS
+========================= */
+
+@keyframes fadeSlideUp {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(0.98);
+
+        filter: blur(10px);
+
+        border-color: rgba(120, 0, 10, 0);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        filter: blur(0);
+
+        border-color: var(--field-border);
+    }
+}
+
+/* =========================
+   INITIAL HIDDEN STATE
+========================= */
+
+.main-card,
+.main-card-am,
+.card,
+.info-card,
+.section-divider {
+
+    opacity: 0;
+
+    animation:
+        fadeSlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1)
+        forwards;
+}
+
+/* =========================
+   STAGGERED TIMING
+========================= */
+
+.main-card,
+.main-card-am {
+    animation-delay: 0.08s;
+}
+
+.section-divider {
+    animation-delay: 0.18s;
+}
+
+.card:nth-child(1),
+.info-card:nth-child(1) {
+    animation-delay: 0.24s;
+}
+
+.card:nth-child(2),
+.info-card:nth-child(2) {
+    animation-delay: 0.34s;
+}
+
+.card:nth-child(3),
+.info-card:nth-child(3) {
+    animation-delay: 0.44s;
+}
+
+.card:nth-child(4),
+.info-card:nth-child(4) {
+    animation-delay: 0.54s;
 }
