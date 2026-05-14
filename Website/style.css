@@ -12,6 +12,10 @@
     font-family: 'Orbitron', sans-serif;
 }
 
+p {
+    font-family: 'Inter', sans-serif;
+}
+
 html {
     scroll-behavior: smooth;
 }
