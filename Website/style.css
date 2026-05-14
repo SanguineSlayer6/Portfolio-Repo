@@ -4,41 +4,21 @@
    GLOBAL SETTINGS
 ========================= */
 
-* {
-    font-family: 'Orbitron', sans-serif;
-}
-
 *,
 *::before,
 *::after {
     box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif;
 }
 
 html {
     scroll-behavior: smooth;
 }
 
-body::before,
-body::after {
-    animation: fieldFade 1.5s ease forwards;
-}
-
-@keyframes fieldFade {
-
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 0.7;
-    }
-}
-
 html,
 body {
     margin: 0;
     padding: 0;
-
     min-height: 100dvh;
 }
 
@@ -47,6 +27,19 @@ body::after,
 .sidenav,
 .topnav {
     will-change: transform, opacity;
+}
+
+button,
+a,
+.card,
+.info-card {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid rgba(220, 0, 30, 0.7);
+    outline-offset: 4px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -65,7 +58,7 @@ body::after,
 :root {
 
     color-scheme: dark;
-    
+
     /* =========================
        FIELD COLOR SYSTEM
     ========================== */
@@ -94,6 +87,13 @@ body::after,
     --radius-sm: 14px;
     --radius-md: 18px;
     --radius-lg: 22px;
+
+    /* =========================
+       TRANSITION SYSTEM
+    ========================== */
+
+    --transition-fast: 0.25s ease;
+    --transition-medium: 0.35s ease;
 }
 
 /* =========================
@@ -101,16 +101,25 @@ body::after,
 ========================= */
 
 body {
-    margin: 0;
-    color: #fff;
+    color: #ffffff;
+
+    animation: pageFade 0.5s ease;
+
     overflow-x: hidden;
+
     background-color: #000000;
+
     overscroll-behavior-y: none;
+
     background-attachment: fixed;
-    background: radial-gradient(circle at 50% 50%,
-        #020000 0%,
-        #000000 60%,
-        #000000 100%);
+
+    background:
+        radial-gradient(
+            circle at 50% 50%,
+            #020000 0%,
+            #000000 60%,
+            #000000 100%
+        );
 }
 
 /* =========================
@@ -120,34 +129,45 @@ body {
 body::before,
 body::after {
     content: "";
+
     position: fixed;
     inset: 0;
+
     pointer-events: none;
+
+    animation: fieldFade 1.5s ease forwards;
 }
 
 body::before {
     z-index: -3;
 
     background:
-        radial-gradient(circle at var(--mx, 50%) var(--my, 50%),
+        radial-gradient(
+            circle at var(--mx, 50%) var(--my, 50%),
             var(--field-mid),
-            transparent 65%),
-        radial-gradient(circle at 50% 80%,
+            transparent 65%
+        ),
+        radial-gradient(
+            circle at 50% 80%,
             rgba(20, 0, 4, 0.20),
-            transparent 70%);
+            transparent 70%
+        );
 }
-
 
 body::after {
     z-index: -2;
 
     background:
-        radial-gradient(circle at var(--x, 50%) var(--y, 50%),
+        radial-gradient(
+            circle at var(--x, 50%) var(--y, 50%),
             var(--field-core),
-            transparent 70%),
-        radial-gradient(circle at var(--fx, 50%) var(--fy, 50%),
+            transparent 70%
+        ),
+        radial-gradient(
+            circle at var(--fx, 50%) var(--fy, 50%),
             var(--field-soft),
-            transparent 60%);
+            transparent 60%
+        );
 
     mix-blend-mode: screen;
     opacity: 0.7;
@@ -161,7 +181,8 @@ body::after {
 .sidenav,
 .main-card,
 .main-card-am,
-.card {
+.card,
+.info-card {
 
     background: var(--surface);
 
@@ -173,9 +194,10 @@ body::after {
 
     backdrop-filter: blur(28px);
 
-    transition: transform 0.25s ease,
-                border-color 0.25s ease,
-                box-shadow 0.25s ease;
+    transition:
+        transform var(--transition-fast),
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
 }
 
 /* =========================
@@ -186,7 +208,8 @@ body::after {
 .sidenav:hover,
 .main-card:hover,
 .main-card-am:hover,
-.card:hover {
+.card:hover,
+.info-card:hover {
 
     border-color: var(--field-glow);
 
@@ -201,6 +224,7 @@ body::after {
 
 .topnav {
     position: fixed;
+
     top: 0;
     left: 0;
 
@@ -211,9 +235,11 @@ body::after {
     align-items: center;
 
     padding: 0 20px;
+
     z-index: 1000;
 
     border-radius: 0 0 var(--radius-md) var(--radius-md);
+
     border-bottom: 1px solid var(--field-border);
 }
 
@@ -223,10 +249,13 @@ body::after {
 
 .logo {
     margin-left: 20px;
+
     font-size: 22px;
+
     color: #ffe6e6;
 
-    text-shadow: 0 0 10px rgba(120, 0, 10, 0.4);
+    text-shadow:
+        0 0 10px rgba(120, 0, 10, 0.4);
 }
 
 /* =========================
@@ -239,29 +268,17 @@ body::after {
 
     border-radius: var(--radius-sm);
 
+    border: 1px solid var(--field-border);
+
     background: rgba(255, 255, 255, 0.03);
 
     color: #ffe6e6;
+
     font-size: 22px;
 
     cursor: pointer;
 
-    border: 1px solid var(--field-border);
-
     backdrop-filter: blur(14px);
-}
-
-button,
-a,
-.card,
-.info-card {
-    -webkit-tap-highlight-color: transparent;
-}
-
-button:focus-visible,
-a:focus-visible {
-    outline: 2px solid rgba(220, 0, 30, 0.7);
-    outline-offset: 4px;
 }
 
 /* =========================
@@ -270,20 +287,29 @@ a:focus-visible {
 
 .sidenav {
     position: fixed;
+
     top: 70px;
     left: 0;
 
     width: 260px;
+
     height: calc(100dvh - 70px);
 
     padding-top: 20px;
 
     transform: translateX(-110%);
-    transition: transform 0.35s ease;
 
-    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    transition:
+        transform var(--transition-medium);
+
+    border-radius:
+        0
+        var(--radius-lg)
+        var(--radius-lg)
+        0;
 
     z-index: 9999;
+
     isolation: isolate;
 }
 
@@ -299,22 +325,26 @@ a:focus-visible {
     display: block;
 
     margin: 10px 15px;
+
     padding: 16px 20px;
 
     border-radius: var(--radius-sm);
 
-    text-decoration: none;
-    color: #ffe6e6;
-
     border: 1px solid transparent;
 
-    transition: transform 0.25s ease,
-                border-color 0.25s ease,
-                background 0.25s ease;
+    text-decoration: none;
+
+    color: #ffe6e6;
+
+    transition:
+        transform var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast);
 }
 
 .sidenav a:hover {
     background: rgba(120, 0, 10, 0.18);
+
     transform: translateX(6px);
 
     border-color: var(--field-glow);
@@ -339,26 +369,33 @@ a:focus-visible {
 ========================= */
 
 .content {
-    padding: 110px 40px;
+    width: min(1200px, 100%);
+
+    margin: 0 auto;
+
+    padding:
+        110px
+        40px;
 }
 
 /* =========================
    MAIN CARD SECTION
 ========================= */
 
-.main-card {
-    max-width: 800px;
+.main-card,
+.main-card-am {
     padding: 30px;
 
     border-radius: var(--radius-md);
 }
 
+.main-card {
+    max-width: 800px;
+}
+
 .main-card-am {
     max-width: 800px;
-    padding: 30px;
     height: 250px;
-
-    border-radius: var(--radius-md);
 }
 
 /* =========================
@@ -367,9 +404,15 @@ a:focus-visible {
 
 .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(220px, 1fr)
+        );
 
     gap: 20px;
+
     margin-top: 30px;
 }
 
@@ -379,6 +422,7 @@ a:focus-visible {
 
 .card {
     padding: 22px;
+
     border-radius: var(--radius-md);
 }
 
@@ -388,10 +432,13 @@ a:focus-visible {
 
 .about-layout {
     display: flex;
+
     align-items: flex-start;
+
     gap: 30px;
 
     width: 100%;
+
     max-width: 1200px;
 
     margin: 0 auto;
@@ -424,51 +471,37 @@ a:focus-visible {
    ABOUT TEXT
 ========================= */
 
-.about-text {
+.about-text,
+.info-text {
     flex: 1;
     min-width: 0;
 }
 
-.about-text h2 {
+.about-text h2,
+.info-text h2 {
     margin-top: 0;
-
-    font-size: clamp(28px, 4vw, 42px);
 
     color: #ffe6e6;
 
     text-shadow:
-        0 0 14px rgba(120, 0, 10, 0.35);
+        0 0 10px rgba(120, 0, 10, 0.25);
+}
+
+.about-text h2 {
+    font-size: clamp(28px, 4vw, 42px);
+}
+
+.about-text p,
+.info-text p {
+    line-height: 1.8;
 }
 
 .about-text p {
-    line-height: 1.8;
-
     color: rgba(255, 235, 235, 0.92);
 }
 
-/* =========================
-   ABOUT PAGE RESPONSIVE LAYOUT
-========================= */
-
-@media (max-width: 900px) {
-
-    .about-layout {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .about-image {
-        width: min(280px, 80vw);
-        height: min(280px, 80vw);
-    }
-
-    .about-text {
-        width: 100%;
-    }
-
-    .about-text h2 {
-        text-align: center;
-    }
+.info-text p {
+    color: rgba(255, 230, 230, 0.88);
 }
 
 /* =========================
@@ -476,14 +509,14 @@ a:focus-visible {
 ========================= */
 
 .section-divider {
+    position: relative;
+
     width: 100%;
     max-width: 1200px;
 
     height: 1px;
 
     margin: 40px auto;
-
-    position: relative;
 
     background:
         linear-gradient(
@@ -544,35 +577,14 @@ a:focus-visible {
 
 .info-card {
     display: flex;
+
     align-items: center;
+
     gap: 30px;
 
     padding: 30px;
 
     border-radius: var(--radius-lg);
-
-    background: var(--surface);
-
-    border: 1px solid var(--field-border);
-
-    box-shadow:
-        0 0 18px var(--field-border-soft),
-        inset 0 0 10px rgba(120, 0, 10, 0.03);
-
-    backdrop-filter: blur(28px);
-
-    transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        box-shadow 0.25s ease;
-}
-
-.info-card:hover {
-    border-color: var(--field-glow);
-
-    box-shadow:
-        0 0 28px rgba(160, 0, 20, 0.25),
-        inset 0 0 12px rgba(120, 0, 10, 0.05);
 }
 
 /* =========================
@@ -598,37 +610,46 @@ a:focus-visible {
 }
 
 /* =========================
-   INFO TEXT
-========================= */
-
-.info-text {
-    flex: 1;
-}
-
-.info-text h2 {
-    margin-top: 0;
-
-    color: #ffe6e6;
-
-    text-shadow:
-        0 0 10px rgba(120, 0, 10, 0.25);
-}
-
-.info-text p {
-    line-height: 1.8;
-
-    color: rgba(255, 230, 230, 0.88);
-}
-
-/* =========================
    MOBILE RESPONSIVE
 ========================= */
 
 @media (max-width: 900px) {
 
+    .content {
+        padding:
+            100px
+            20px;
+    }
+
+    .about-layout,
     .info-card {
         flex-direction: column;
+    }
+
+    .about-layout {
+        align-items: center;
+    }
+
+    .info-card {
         align-items: flex-start;
+    }
+
+    .about-image {
+        width: min(280px, 80vw);
+        height: min(280px, 80vw);
+    }
+
+    .info-stack {
+        max-width: 100%;
+    }
+
+    .about-text,
+    .info-text {
+        width: 100%;
+    }
+
+    .about-text h2 {
+        text-align: center;
     }
 
     .info-image img {
@@ -638,10 +659,20 @@ a:focus-visible {
     }
 }
 
-
 /* =========================
    PAGE LOAD ANIMATIONS
 ========================= */
+
+@keyframes fieldFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 0.7;
+    }
+}
 
 @keyframes fadeSlideUp {
 
@@ -654,7 +685,8 @@ a:focus-visible {
 
         filter: blur(10px);
 
-        border-color: rgba(120, 0, 10, 0);
+        border-color:
+            rgba(120, 0, 10, 0);
     }
 
     to {
@@ -666,7 +698,8 @@ a:focus-visible {
 
         filter: blur(0);
 
-        border-color: var(--field-border);
+        border-color:
+            var(--field-border);
     }
 }
 
@@ -683,7 +716,9 @@ a:focus-visible {
     opacity: 0;
 
     animation:
-        fadeSlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1)
+        fadeSlideUp
+        0.9s
+        cubic-bezier(0.22, 1, 0.36, 1)
         forwards;
 }
 
