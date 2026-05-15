@@ -168,8 +168,6 @@ body::after {
     border: 1px solid var(--field-border);
     box-shadow: 0 0 18px var(--field-border-soft), inset 0 0 10px rgba(120, 0, 10, 0.03);
     backdrop-filter: blur(28px);
-    -webkit-backdrop-filter: blur(28px);
-    transform: translateZ(0);
     transition:
         transform var(--transition-fast),
         border-color var(--transition-fast),
@@ -236,7 +234,6 @@ body::after {
     font-size: 22px;
     cursor: pointer;
     backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(28px);
 }
 
 /* =========================
@@ -557,6 +554,8 @@ body::after {
             translateY(30px)
             scale(0.98);
 
+        filter: blur(10px);
+
         border-color:
             rgba(120, 0, 10, 0);
     }
@@ -567,6 +566,8 @@ body::after {
         transform:
             translateY(0)
             scale(1);
+
+        filter: blur(0);
 
         border-color:
             var(--field-border);
