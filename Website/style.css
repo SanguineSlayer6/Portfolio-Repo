@@ -557,8 +557,6 @@ body::after {
             translateY(30px)
             scale(0.98);
 
-        filter: blur(10px);
-
         border-color:
             rgba(120, 0, 10, 0);
     }
@@ -569,8 +567,6 @@ body::after {
         transform:
             translateY(0)
             scale(1);
-
-        filter: blur(0);
 
         border-color:
             var(--field-border);
