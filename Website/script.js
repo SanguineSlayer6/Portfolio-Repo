@@ -96,6 +96,22 @@ window.addEventListener(
     { passive: true }
 );
 
+window.addEventListener(
+    "touchstart",
+    (event) => {
+
+        const touch = event.touches[0];
+
+        if (!touch) return;
+
+        updatePointerPosition(
+            touch.clientX,
+            touch.clientY
+        );
+    },
+    { passive: true }
+);
+
 /* =========================
    SIDEBAR TOGGLE SYSTEM
 ========================= */
