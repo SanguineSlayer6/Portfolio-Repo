@@ -537,6 +537,17 @@ body::after {
    PAGE LOAD ANIMATIONS
 ========================= */
 
+@keyframes pageFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 @keyframes fieldFade {
 
     from {
@@ -583,13 +594,18 @@ body::after {
 .info-card,
 .section-divider {
 
-    opacity: 0;
+    opacity: 1;
 
     animation:
         fadeSlideUp
         0.9s
         cubic-bezier(0.22, 1, 0.36, 1)
-        forwards;
+        both;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    transform-style: preserve-3d;
 }
 
 /* =========================
