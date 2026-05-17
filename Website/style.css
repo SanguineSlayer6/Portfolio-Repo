@@ -109,6 +109,8 @@ body {
     overflow-x: hidden;
     background-color: #000000;
     overscroll-behavior-y: none;
+    -webkit-font-smoothing: antialiased;
+    isolation: isolate;
     background-attachment: fixed;
     background:
         radial-gradient(
