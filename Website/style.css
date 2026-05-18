@@ -109,6 +109,8 @@ body {
     overflow-x: hidden;
     background-color: #000000;
     overscroll-behavior-y: none;
+    -webkit-font-smoothing: antialiased;
+    isolation: isolate;
     background-attachment: fixed;
     background:
         radial-gradient(
@@ -165,11 +167,19 @@ body::after {
 .info-card {
 
     background: var(--surface);
-    border: 1px solid var(--field-border);
-    box-shadow: 0 0 18px var(--field-border-soft), inset 0 0 10px rgba(120, 0, 10, 0.03);
+
+    /* Persistent OLED edge visibility */
+    border: 1px solid rgba(120, 0, 10, 0.28);
+
+    /* Always-on crimson energy */
+    box-shadow:
+        0 0 12px rgba(140, 0, 18, 0.10),
+        0 0 24px rgba(140, 0, 18, 0.04),
+        inset 0 0 10px rgba(120, 0, 10, 0.03);
+
     backdrop-filter: blur(28px);
     -webkit-backdrop-filter: blur(28px);
-    transform: translateZ(0);
+
     transition:
         transform var(--transition-fast),
         border-color var(--transition-fast),
@@ -187,10 +197,12 @@ body::after {
 .card:hover,
 .info-card:hover {
 
-    border-color: var(--field-glow);
+    border-color: rgba(220, 0, 30, 0.42);
+
     box-shadow:
-        0 0 28px rgba(160, 0, 20, 0.25),
-        inset 0 0 12px rgba(120, 0, 10, 0.05);
+        0 0 18px rgba(180, 0, 20, 0.18),
+        0 0 42px rgba(180, 0, 20, 0.14),
+        inset 0 0 14px rgba(120, 0, 10, 0.06);
 }
 
 /* =========================
@@ -537,6 +549,17 @@ body::after {
    PAGE LOAD ANIMATIONS
 ========================= */
 
+@keyframes pageFade {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
 @keyframes fieldFade {
 
     from {
@@ -583,13 +606,18 @@ body::after {
 .info-card,
 .section-divider {
 
-    opacity: 0;
+    opacity: 1;
 
     animation:
         fadeSlideUp
         0.9s
         cubic-bezier(0.22, 1, 0.36, 1)
-        forwards;
+        both;
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    transform-style: preserve-3d;
 }
 
 /* =========================
