@@ -9,6 +9,8 @@
 *::before,
 *::after {
     box-sizing: border-box;
+}
+body {
     font-family: 'Orbitron', sans-serif;
 }
 
@@ -543,6 +545,42 @@ body::after {
         max-width: 320px;
         height: auto;
     }
+}
+
+/* =========================
+   ICON GLOW SYSTEM
+========================= */
+
+i.fa-solid,
+i.fa-regular,
+i.fa-brands {
+
+    color: #ffe6e6;
+
+    text-shadow:
+        0 0 6px rgba(180, 0, 20, 0.18),
+        0 0 12px rgba(180, 0, 20, 0.08);
+
+    transition:
+        color var(--transition-fast),
+        text-shadow var(--transition-fast),
+        transform var(--transition-fast);
+}
+
+/* =========================
+   INTERACTIVE ICON RESPONSE
+========================= */
+
+a:hover i,
+button:hover i,
+.card:hover i,
+.info-card:hover i {
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 8px rgba(220, 0, 30, 0.28),
+        0 0 18px rgba(220, 0, 30, 0.14);
 }
 
 /* =========================
